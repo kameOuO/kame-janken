@@ -60,7 +60,7 @@ function processGameLogic(myHand) {
   const kameText = document.getElementById("kameText");
   const kameImage = document.getElementById("kameImage");
   kameText.innerHTML = buildVictoryOrDefeat(result);
-  kameImage.src = `/assets/images/${buildImageFileName(result, enemyHand)}`;
+  kameImage.src = `./images/${buildImageFileName(result, enemyHand)}`;
 }
 
 function loaded(){
