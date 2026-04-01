@@ -54,6 +54,25 @@ function buildVictoryOrDefeat(result){
   }
 }
 
+function resultCounts(result){
+  const resultText = document.getElementById("resultText");
+  let resultCount = JSON.parse(localStorage.getItem("resultCount"));
+  if (resultCount === null){
+    resultCount = {
+      win: 0,
+      lose: 0
+    };
+  }
+  if (result === WIN){
+    resultCount.win = resultCount.win + 1;
+  }
+  if (result === LOSE){
+    resultCount.lose = resultCount.lose + 1;
+  }
+  resultText.innerText = `${resultCount.win}勝${resultCount.lose}敗`;
+  localStorage.setItem("resultCount", JSON.stringify(resultCount));
+}
+
 function processGameLogic(myHand) {
   const enemyHand = generateEnemyHand();
   const result = judge(enemyHand, myHand);
@@ -61,6 +80,7 @@ function processGameLogic(myHand) {
   const kameImage = document.getElementById("kameImage");
   kameText.innerHTML = buildVictoryOrDefeat(result);
   kameImage.src = `./images/${buildImageFileName(result, enemyHand)}`;
+  resultCounts(result);
 }
 
 function loaded(){
@@ -76,3 +96,5 @@ function loaded(){
 }
 
 document.addEventListener("DOMContentLoaded", loaded);
+
+document.addEventListener("DOMContentLoaded", resultCounts)
